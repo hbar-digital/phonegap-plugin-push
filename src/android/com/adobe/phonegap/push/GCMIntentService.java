@@ -34,6 +34,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.neolane.android.v1.Neolane;
+import com.neolane.android.v1.NeolaneException;
+
 @SuppressLint("NewApi")
 public class GCMIntentService extends GcmListenerService implements PushConstants {
 
