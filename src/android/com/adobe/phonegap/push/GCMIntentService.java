@@ -63,6 +63,8 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
             SharedPreferences prefs = getApplicationContext().getSharedPreferences(PushPlugin.COM_ADOBE_PHONEGAP_PUSH, Context.MODE_PRIVATE);
             boolean forceShow = prefs.getBoolean(FORCE_SHOW, false);
 
+            handleNeolaneReceive(extras);
+
             extras = normalizeExtras(extras);
 
             // if we are in the foreground and forceShow is `false` only send data
@@ -84,6 +86,26 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
                 extras.putBoolean(FOREGROUND, false);
 
                 showNotificationIfPossible(getApplicationContext(), extras);
+            }
+        }
+    }
+
+    public void handleNeolaneReceive(Bundle extras) {
+        String neolaneMessage = extras.getString(NEOLANE_MESSAGE);
+        if(neolaneMessage != null && neolaneMessage.length() != 0) {
+            extras.putString(MESSAGE, neolaneMessage);
+
+            String mId = extras.getString(NEOLANE_MID);
+            String dId = extras.getString(NEOLANE_DID);
+
+            try {
+                Log.d(LOG_TAG, "Neolane - notifyReceive");
+                Neolane.getInstance().notifyReceive(Integer.valueOf(mId), dId);
+                Log.d(LOG_TAG, "Neolane - notifyReceive done!");
+            } catch (NeolaneException e) {
+                Log.e(LOG_TAG, "oops");
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "oops");
             }
         }
     }

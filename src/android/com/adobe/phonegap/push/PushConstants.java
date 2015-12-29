@@ -54,4 +54,8 @@ public interface PushConstants {
     public static final String GCM = "GCM";
     public static final String CONTENT_AVAILABLE = "content-available";
     public static final String TOPICS = "topics";
+
+    public static final String NEOLANE_MESSAGE = "_msg";
+    public static final String NEOLANE_MID = "_mId";
+    public static final String NEOLANE_DID = "_dId";
 }
