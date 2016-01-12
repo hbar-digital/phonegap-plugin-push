@@ -58,4 +58,6 @@ public interface PushConstants {
     public static final String NEOLANE_MESSAGE = "_msg";
     public static final String NEOLANE_MID = "_mId";
     public static final String NEOLANE_DID = "_dId";
+
+    public static final String MIXPANEL_MESSAGE = "mp_message";
 }

@@ -66,7 +66,12 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
             SharedPreferences prefs = getApplicationContext().getSharedPreferences(PushPlugin.COM_ADOBE_PHONEGAP_PUSH, Context.MODE_PRIVATE);
             boolean forceShow = prefs.getBoolean(FORCE_SHOW, false);
 
+
+            Log.d("hbar", "push received " + from);
+
             handleNeolaneReceive(extras);
+
+            handleMixpanelReceive(extras);
 
             extras = normalizeExtras(extras);
 
@@ -95,6 +100,7 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
 
     public void handleNeolaneReceive(Bundle extras) {
         String neolaneMessage = extras.getString(NEOLANE_MESSAGE);
+
         if(neolaneMessage != null && neolaneMessage.length() != 0) {
             extras.putString(MESSAGE, neolaneMessage);
 
@@ -110,6 +116,17 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
             } catch (IOException e) {
                 Log.e(LOG_TAG, "oops");
             }
+        }
+    }
+
+    public void handleMixpanelReceive(Bundle extras) {
+        String mixpanelMessage = extras.getString(MIXPANEL_MESSAGE);
+
+        Log.d("hbar", "handleMixpanelReceive " + mixpanelMessage);
+        
+        if(mixpanelMessage != null && mixpanelMessage.length() != 0) {
+            extras.putString(MESSAGE, mixpanelMessage);
+            extras.putString(TITLE, "Road to 50");
         }
     }
 
