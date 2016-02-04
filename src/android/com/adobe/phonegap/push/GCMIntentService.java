@@ -127,6 +127,7 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
         if(mixpanelMessage != null && mixpanelMessage.length() != 0) {
             extras.putString(MESSAGE, mixpanelMessage);
             extras.putString(TITLE, "Road to 50");
+            extras.putBoolean(IS_MIXPANEL, true);
         }
     }
 
